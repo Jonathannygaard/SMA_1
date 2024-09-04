@@ -82,7 +82,7 @@ public:
     bool bDoorInteracted = false;
 
     float NPCDirection = 1;
-    float NPCSpeed = 0.1f;
+    float NPCSpeed = 0.001f;
     
 
     Cube* OverlappedCube = nullptr;

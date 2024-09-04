@@ -25,52 +25,29 @@ void Application::init()
 void Application::create() {
 
     // Player
-    Player.CreateCube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.75f, 1.3f, 0.75f), Color::Blue);
-    Player.AddCollider(glm::vec3(0.75f, 1.3f, 0.75f), ECollisionType::Player);
-    Player.bIsPlayer = true;
+    Wall_1.CreateCube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.75f, 1.3f, 5.f), Color::Blue);
+    Wall_1.AddCollider(glm::vec3(0.75f, 1.3f, 0.75f), ECollisionType::Wall);
 
-    Terrain.CreateTerrain(-5,0,5,5, 1.f);
-    Terrain.isTarrain = true;
+    
+    Wall_2.CreateCube(glm::vec3(0.f, 0.f, 5.f), glm::vec3(3.f, 1.3f, 0.75f), Color::Blue);
+    Wall_2.AddCollider(glm::vec3(0.75f, 1.3f, 0.75f), ECollisionType::Wall);
+    
+    
+    Wall_3.CreateCube(glm::vec3(3.f, 0.f, 0.f), glm::vec3(0.75f, 1.3f, 5.f), Color::Blue);
+    Wall_3.AddCollider(glm::vec3(0.75f, 1.3f, 0.75f), ECollisionType::Wall);
 
-    Curve.CreateCurve(Terrain);
-    Curve.isLine = true;
+    
+    Wall_4.CreateCube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(3.f, 1.3f, 0.75f), Color::Blue);
+    Wall_4.AddCollider(glm::vec3(0.75f, 1.3f, 0.75f), ECollisionType::Wall);
 
-    NPC.CreateCube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(1.f), Color::Green);
-
-    NPC2.CreateCube(glm::vec3(10.f,0.f,10.f), glm::vec3(1.f), Color::Red);
-    NPC2.AddCollider(glm::vec3(1.f), ECollisionType::NPC);
-
-    Pickup.CreateCube(glm::vec3(0.5f, Terrain.FindTerrainHeight(Pickup.GetPosition()), 5.5f), glm::vec3(1.f), Color::Gold);
-    Pickup.bIsPickup = true;
-    Pickup.AddCollider(glm::vec3(1.f), ECollisionType::Pickup);
-
-    Pickup2.CreateCube(glm::vec3(5.f, Terrain.FindTerrainHeight(Pickup.GetPosition()), 5.5f), glm::vec3(1.f), Color::Gold);
-    Pickup2.bIsPickup = true;
-    Pickup2.AddCollider(glm::vec3(1.f), ECollisionType::Pickup);
+    
+    Floor.CreateCube(glm::vec3(0.f, -0.75f, 0.f), glm::vec3(3.f, 0.75f, 5.f), Color::Blue);
+    Floor.AddCollider(glm::vec3(0.75f, 1.3f, 0.75f), ECollisionType::Wall);
 }
 
 void Application::update() {
-    Terrain.FindTerrainHeight(Player.GetPosition());
 
-    if (NPC.GetPosition().z < -20)
-    {
-        NPC.NPCDirection = 1*DeltaTime;
-    }
-    if(NPC.GetPosition().z > 20)
-    {
-        NPC.NPCDirection = -1*DeltaTime;
-    }
-    NPC.GetPosition().x += NPC.NPCDirection;
-    NPC.GetPosition().z = Mesh::f(NPC.GetPosition().x);
-
-    NPC2.ChasePlayer(Player);
-
-    Terrain.FindTerrainHeight(NPC.GetPosition());
-    Terrain.FindTerrainHeight(NPC2.GetPosition());
-
-    mCamera.OrbitCamera();
-
-    Collision::CheckPickupCollisions();
+   
 }
 
 void Application::run()
@@ -103,17 +80,15 @@ void Application::run()
         // Render the objects
         // -----
         Skybox.Draw();
-        Player.Draw();
-        Terrain.Draw();
-        Curve.Draw();
-        NPC.Draw();
-        NPC2.Draw();
-        Pickup.Draw();
-        Pickup2.Draw();
+        Wall_1.Draw();
+        Wall_2.Draw();
+        Wall_3.Draw();
+        Wall_4.Draw();
+        Floor.Draw();
         
         // input
         // -----
-        KeyBoardInput::processInput(mWindow, &Player);
+        //KeyBoardInput::processInput(mWindow, &Player);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

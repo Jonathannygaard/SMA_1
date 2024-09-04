@@ -13,13 +13,11 @@ public:
     static float DeltaTime;
 
     Cube Skybox;
-    Cube Player;
-    Mesh Terrain;
-    Mesh Curve;
-    Cube NPC;
-    Cube NPC2;
-    Cube Pickup;
-    Cube Pickup2;
+    Cube Wall_1;
+    Cube Wall_2;
+    Cube Wall_3;
+    Cube Wall_4;
+    Cube Floor;
     
     void init();
     void create();
